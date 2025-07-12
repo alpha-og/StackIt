@@ -19,7 +19,7 @@ export const postAnswer = async (req: Request, res: Response) => {
 
         const answer = await Answer.create({
             content,
-            userId: req.user?.id,
+            userId: req.user.id,
             questionId,
         });
 
