@@ -1,11 +1,12 @@
-import express from "express";
-import cors from "cors";
 import dotenv from "dotenv";
 import { Sequelize } from "sequelize";
 import { initModels } from "./models/index.ts";
-import routes from "./routes/index.ts";
+import app from "./app.ts";
 
 dotenv.config();
+
+const PORT = process.env.PORT || 5000;
+
 const sequelize = new Sequelize(
     process.env.DB_DEV_NAME as string,
     process.env.DB_DEV_USER as string,
@@ -21,18 +22,6 @@ initModels(sequelize);
 
 sequelize.sync({ alter: true }).then(() => {
     console.log("Database synced");
-});
-const app = express();
-const PORT = process.env.PORT || 5000;
-
-app.use(cors());
-app.use(express.json());
-
-// Mount API
-app.use("/api/v1", routes);
-
-app.get("/", (_req, res) => {
-    res.send("StackIt Backend API is running");
 });
 
 app.listen(PORT, () => {
