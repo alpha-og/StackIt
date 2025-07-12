@@ -3,6 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import { Sequelize } from "sequelize";
 import { initModels } from "./models/index.ts";
+import routes from "./routes/index.ts";
 
 dotenv.config();
 const sequelize = new Sequelize(
@@ -19,13 +20,16 @@ const sequelize = new Sequelize(
 initModels(sequelize);
 
 sequelize.sync({ alter: true }).then(() => {
-    console.log("✅ Database synced");
+    console.log("Database synced");
 });
 const app = express();
 const PORT = process.env.PORT || 5000;
 
 app.use(cors());
 app.use(express.json());
+
+// Mount API
+app.use("/api/v1", routes);
 
 app.get("/", (_req, res) => {
     res.send("StackIt Backend API is running");
