@@ -1,7 +1,7 @@
 "use strict";
 
 import { Model, DataTypes, type Optional, type Sequelize } from "sequelize";
-import type { User } from "./user";
+import { Tag } from "./tag.ts";
 
 export interface QuestionAttributes {
     id: string;
@@ -25,12 +25,18 @@ export class Question
     public readonly createdAt!: Date;
     public readonly updatedAt!: Date;
 
+    // Tag association methods added by Sequelize
+    public setTags!: (tags: Tag[] | string[] | any) => Promise<void>;
+    public addTags!: (tags: Tag[] | string[] | any) => Promise<void>;
+    public getTags!: () => Promise<Tag[]>;
+
     static associate(models: any) {
         Question.belongsTo(models.User, { foreignKey: "userId" });
         Question.hasMany(models.Answer, { foreignKey: "questionId" });
         Question.belongsToMany(models.Tag, {
             through: "QuestionTags",
             foreignKey: "questionId",
+            otherKey: "tagId",
         });
     }
 }
