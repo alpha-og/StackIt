@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useParams, Link } from "react-router-dom";
+import JoditEditor from "jodit-react";
+import { useRef } from "react";
 
 type Answer = {
     id: number;
@@ -20,6 +22,7 @@ export default function QuestionDetailPage() {
             "I do not know the code for it as I am a beginner. As an example what I need to do is like there is a column 1 containing First name, and column 2 consists of last name. I want a column to combine...",
         tags: ["SQL", "Beginner"],
     };
+    const editor = useRef(null);
 
     const [answers, setAnswers] = useState<Answer[]>([
         {
@@ -186,12 +189,16 @@ export default function QuestionDetailPage() {
             <div className="max-w-2xl mx-auto bg-gray-800 p-6 rounded-lg shadow-lg">
                 <h4 className="text-lg font-bold mb-2">Submit Your Answer</h4>
                 <form onSubmit={handleSubmitAnswer} className="space-y-4">
-                    <textarea
-                        className="w-full bg-gray-700 p-2 rounded min-h-[150px] focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        value={newAnswer}
-                        onChange={(e) => setNewAnswer(e.target.value)}
-                        placeholder="Write your answer..."
-                    />
+                    <div className="bg-gray-700 p-2 rounded">
+                        <JoditEditor
+                            ref={editor}
+                            value={newAnswer}
+                            onChange={(newContent) => setNewAnswer(newContent)}
+                            config={{
+                                theme: "dark",
+                            }}
+                        />
+                    </div>
                     <button
                         type="submit"
                         className="bg-blue-600 hover:bg-blue-500 px-4 py-2 rounded"
