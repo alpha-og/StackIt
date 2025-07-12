@@ -1,12 +1,26 @@
 import express from "express";
 import cors from "cors";
-import db from "./models/index.ts";
+import dotenv from "dotenv";
+import { Sequelize } from "sequelize";
+import { initModels } from "./models/index.ts";
 
-db.sequelize
-    .authenticate()
-    .then(() => console.log("DB Connected"))
-    .catch((err) => console.error("DB Connection Error:", err));
+dotenv.config();
+const sequelize = new Sequelize(
+    process.env.DB_DEV_NAME as string,
+    process.env.DB_DEV_USER as string,
+    process.env.DB_DEV_PASSWORD as string,
+    {
+        host: process.env.DB_DEV_HOST,
+        port: Number(process.env.DB_DEV_PORT),
+        dialect: "postgres",
+        logging: false,
+    },
+);
+initModels(sequelize);
 
+sequelize.sync({ alter: true }).then(() => {
+    console.log("✅ Database synced");
+});
 const app = express();
 const PORT = process.env.PORT || 5000;
 
