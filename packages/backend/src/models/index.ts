@@ -5,6 +5,7 @@ import defineQuestion, { Question } from "./question.ts";
 import defineAnswer, { Answer } from "./answer.ts";
 import defineVote, { Vote } from "./vote.ts";
 import defineTag, { Tag } from "./tag.ts";
+import defineNotification, { Notification } from "./notification.ts";
 
 const models = {
     User,
@@ -12,6 +13,7 @@ const models = {
     Answer,
     Vote,
     Tag,
+    Notification,
 };
 
 export const initModels = (sequelize: Sequelize) => {
@@ -21,6 +23,7 @@ export const initModels = (sequelize: Sequelize) => {
     defineAnswer(sequelize);
     defineVote(sequelize);
     defineTag(sequelize);
+    defineNotification(sequelize);
 
     // Associate
     User.associate(models);
@@ -28,9 +31,10 @@ export const initModels = (sequelize: Sequelize) => {
     Answer.associate(models);
     Vote.associate(models);
     Tag.associate(models);
+    Notification.associate(models);
 };
 
-export { User, Question, Answer, Vote, Tag };
+export { User, Question, Answer, Vote, Tag, Notification };
 
 // import fs from "fs";
 // import path from "path";
