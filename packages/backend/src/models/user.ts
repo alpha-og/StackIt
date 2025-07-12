@@ -31,7 +31,8 @@ export class User
 
     // Associations
     static associate(models: any): void {
-        // define associations here in the future
+        User.hasMany(models.Question, { foreignKey: "userId" });
+        User.hasMany(models.Answer, { foreignKey: "userId" });
     }
 }
 
