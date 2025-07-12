@@ -1,12 +1,11 @@
 import express from "express";
 import cors from "cors";
-import config from "./config/config.ts";
 import db from "./models/index.ts";
 
 db.sequelize
     .authenticate()
-    .then(() => console.log("✅ DB Connected"))
-    .catch((err) => console.error("❌ DB Connection Error:", err));
+    .then(() => console.log("DB Connected"))
+    .catch((err) => console.error("DB Connection Error:", err));
 
 const app = express();
 const PORT = process.env.PORT || 5000;

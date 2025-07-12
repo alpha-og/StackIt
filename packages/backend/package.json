@@ -9,7 +9,7 @@
         "migrate:undo": "sequelize-cli db:migrate:undo",
         "seed": "sequelize-cli db:seed:all",
         "seed:undo": "sequelize-cli db:seed:undo:all",
-        "dev": "nodemon --exec \"node --loader ts-node/esm\" src/index.ts",
+        "dev": "nodemon src/index.ts",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "keywords": [],
@@ -39,6 +39,7 @@
         "ts-node": "^10.9.2",
         "ts-node-dev": "^2.0.0",
         "tsx": "^4.20.3",
-        "typescript": "~5.8.3"
+        "typescript": "~5.8.3",
+        "vite": "^7.0.4"
     }
 }
