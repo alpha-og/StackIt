@@ -1,14 +1,24 @@
-import { useState } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import HomePage from "./components/Home/HomePage";
+import LoginPage from "./components/Auth/LoginPage";
+import AskPage from "./components/Questions/AskPage";
+import QuestionDetailPage from "./components/Questions/QuestionDetailPage";
 
 function App() {
-    const [count, setCount] = useState(0);
-
     return (
-        <>
-            <h1>Hello world!</h1>
-            <p>You clicked {count} times.</p>
-            <button onClick={() => setCount(count + 1)}>Click me</button>
-        </>
+        <Router>
+            <div className="font-sans">
+                <Routes>
+                    <Route path="/" element={<HomePage />} />
+                    <Route path="/login" element={<LoginPage />} />
+                    <Route path="/ask" element={<AskPage />} />
+                    <Route
+                        path="/question/:id"
+                        element={<QuestionDetailPage />}
+                    />
+                </Routes>
+            </div>
+        </Router>
     );
 }
 
