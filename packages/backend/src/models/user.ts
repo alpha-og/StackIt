@@ -1,6 +1,6 @@
 "use strict";
 
-import { Model, DataTypes, type Optional, Sequelize } from "sequelize";
+import { Model, DataTypes, type Optional, type Sequelize } from "sequelize";
 
 // Define attributes
 export interface UserAttributes {
@@ -11,7 +11,7 @@ export interface UserAttributes {
     role: "guest" | "user" | "admin";
 }
 
-// Define creation attributes (omit `id` if auto-generated)
+// Define creation attributes
 export interface UserCreationAttributes
     extends Optional<UserAttributes, "id" | "role"> {}
 
@@ -19,15 +19,15 @@ export class User
     extends Model<UserAttributes, UserCreationAttributes>
     implements UserAttributes
 {
-    public id!: string;
-    public username!: string;
-    public email!: string;
-    public passwordHash!: string;
-    public role!: "guest" | "user" | "admin";
+    declare id: string;
+    declare username: string;
+    declare email: string;
+    declare passwordHash: string;
+    declare role: "guest" | "user" | "admin";
 
     // timestamps
-    public readonly createdAt!: Date;
-    public readonly updatedAt!: Date;
+    declare readonly createdAt: Date;
+    declare readonly updatedAt: Date;
 
     // Associations
     static associate(models: any): void {
